@@ -15,11 +15,17 @@ if (LIBCXX_ENABLE_STATIC_ABI_LIBRARY OR LIBCXX_ENABLE_ABI_LINKER_SCRIPT)
   set(LIBCXX_CXX_ABI_LIBNAME "none")
 endif()
 
+
+# lilinjn -- disagree with this logic -- setting to 'OFF' causes the tests to link to libgcc/libgcc_s
+# which may not be available.  Maybe correct thing to do would be to add the ENBALE_ABI_SCRIPT var to lit.cfg.in
+# and then update target.py to use this in its logic. With this patch, libunwind, etc might be speficied twice, but that really
+# doesn't seem that bad.
+
 # The tests shouldn't link to libunwind if we have a linker script which
 # already does so.
-if (LIBCXX_ENABLE_ABI_LINKER_SCRIPT)
-  set(LIBCXXABI_USE_LLVM_UNWINDER OFF)
-endif()
+#if (LIBCXX_ENABLE_ABI_LINKER_SCRIPT)
+#  set(LIBCXXABI_USE_LLVM_UNWINDER OFF)
+#endif()
 
 pythonize_bool(LIBCXX_ENABLE_EXCEPTIONS)
 pythonize_bool(LIBCXX_ENABLE_EXPERIMENTAL_LIBRARY)
