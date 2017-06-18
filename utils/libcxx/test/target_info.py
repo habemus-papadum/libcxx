@@ -236,7 +236,10 @@ class LinuxLocalTI(DefaultTargetInfo):
             flags += ['-lgcc_s']
         compiler_rt = self.full_config.get_lit_bool('compiler_rt', False)
         if not compiler_rt:
-            flags += ['-lgcc']
+            # lilinjn: we never want gcc
+            # lilinjn: todo need to find a cleaner way of doing this
+            #    flags += ['-lgcc']
+            pass
         use_libatomic = self.full_config.get_lit_bool('use_libatomic', False)
         if use_libatomic:
             flags += ['-latomic']
